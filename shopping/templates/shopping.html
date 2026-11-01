@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block title %}EasyShop | Access Portal{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('shopping_static', filename='css/shopping.css') }}">
+{% endblock %}
+{% block content %}
+<div class="shop-page">
+  <header class="shop-header">
+    <div>
+      <p class="shop-eyebrow">ACCESSIBLE SHOPPING DEMO</p>
+      <h1>EasyShop</h1>
+      <p>Shopping made easier for everyone.</p>
+    </div>
+    <p class="shop-cart-summary" aria-label="Cart contains 0 items">
+      <span aria-hidden="true">🛒</span> Cart: <strong id="cartCount">0</strong>
+    </p>
+  </header>
+
+  <section id="shopView">
+    <section class="shop-intro">
+      <h2 tabindex="-1">Find what you need</h2>
+      <p>Search products, read their details, and add them to your demo cart.</p>
+      <div class="shop-search">
+        <label for="productSearch">Search products</label>
+        <input id="productSearch" type="search" placeholder="Try grip, reacher or bottle">
+        <label for="categoryFilter">Category</label>
+        <select id="categoryFilter">
+          {% for category in categories %}
+          <option value="{{ category }}">{{ category }}</option>
+          {% endfor %}
+        </select>
+        <p id="productCount" role="status">{{ products|length }} products shown</p>
+      </div>
+    </section>
+
+    <section id="productGrid" class="shop-product-grid" aria-label="Products">
+      {% for product in products %}
+      <article class="shop-product-card"
+        data-product-id="{{ product.id }}"
+        data-category="{{ product.category }}"
+        data-search="{{ (product.name ~ ' ' ~ product.description ~ ' ' ~ product.category)|lower }}">
+        <div class="shop-product-symbol" aria-hidden="true">{{ product.emoji }}</div>
+        <h3>{{ product.name }}</h3>
+        <p class="shop-category-tag">{{ product.category }}</p>
+        <p>{{ product.description }}</p>
+        <p class="shop-price">Price: ₹{{ product.price }}</p>
+        <button class="shop-button" type="button" data-add-product="{{ product.id }}">Add {{ product.name }} to cart</button>
+      </article>
+      {% endfor %}
+      <p id="noProducts" role="status" hidden>No products found. Try another search term.</p>
+    </section>
+
+    <section class="shop-cart-section" aria-labelledby="cartHeading">
+      <h2 id="cartHeading">Your cart</h2>
+      <div id="cartContents"><p>Your cart is empty.</p></div>
+    </section>
+  </section>
+
+  <section id="checkoutView" class="shop-checkout" aria-labelledby="checkoutHeading" hidden>
+    <h2 id="checkoutHeading" tabindex="-1">Checkout</h2>
+    <p>Please enter demo delivery details and review your order.</p>
+    <h3>Order summary</h3>
+    <ul id="checkoutItems"></ul>
+    <p>Subtotal: ₹<span id="checkoutSubtotal">0</span></p>
+    <p>Delivery charge: ₹50</p>
+    <h3>Total: ₹<span id="checkoutTotal">50</span></h3>
+    <div id="checkoutForm">
+      <div class="shop-form-field">
+        <label for="customerName">Customer name</label>
+        <input id="customerName" type="text" placeholder="Enter demo customer name" required>
+      </div>
+      <div class="shop-form-field">
+        <label for="deliveryAddress">Delivery address</label>
+        <textarea id="deliveryAddress" placeholder="Enter a fictional demo address" rows="3" required></textarea>
+      </div>
+      <fieldset class="shop-payment-options">
+        <legend>Select demo payment method</legend>
+        <label><input type="radio" name="payment" value="Cash on Delivery" checked> Cash on Delivery</label>
+        <label><input type="radio" name="payment" value="Simulated Online Payment"> Simulated Online Payment (demo only)</label>
+      </fieldset>
+      <p class="shop-demo-notice">This is a demonstration. No real payment will be collected, and checkout details are not sent or saved.</p>
+      <button class="shop-button" id="placeOrder" type="button">Place Demo Order</button>
+      <button class="shop-button shop-secondary-button" id="backToCart" type="button">Back to Shopping Cart</button>
+    </div>
+  </section>
+
+  <section id="invoiceView" class="shop-invoice-section" aria-labelledby="invoiceHeading" hidden>
+    <div class="shop-order-success">
+      <h2 id="invoiceHeading" tabindex="-1">Demo Order Confirmed!</h2>
+      <p>Your demo order has been placed successfully.</p>
+    </div>
+    <div class="shop-invoice">
+      <h2>EasyShop — Order Bill</h2>
+      <p><strong>Order ID:</strong> <span id="invoiceOrderId"></span></p>
+      <p><strong>Customer:</strong> <span id="invoiceCustomer"></span></p>
+      <p><strong>Delivery address:</strong> <span id="invoiceAddress"></span></p>
+      <p><strong>Payment method:</strong> <span id="invoicePayment"></span></p>
+      <hr>
+      <h3>Purchased items</h3>
+      <div id="invoiceItems" class="shop-invoice-items"></div>
+      <hr>
+      <p>Subtotal: ₹<span id="invoiceSubtotal"></span></p>
+      <p>Delivery: ₹50</p>
+      <h3>Grand Total: ₹<span id="invoiceTotal"></span></h3>
+      <p class="shop-demo-notice">This is a computer-generated demo bill. No real payment was processed.</p>
+    </div>
+    <div class="shop-invoice-actions no-print">
+      <button class="shop-button" id="printInvoice" type="button">Print / Save Bill as PDF</button>
+      <button class="shop-button shop-secondary-button" id="continueShopping" type="button">Continue Shopping</button>
+    </div>
+  </section>
+  <p id="shopStatus" class="shop-sr-status" role="status" aria-live="polite" aria-atomic="true"></p>
+  <p class="shop-footer-note">Demo only — use fictional details. No real payments or personal data are collected.</p>
+</div>
+<script src="{{ url_for('shopping_static', filename='js/shopping.js') }}" defer></script>
+{% endblock %}

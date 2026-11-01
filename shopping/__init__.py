@@ -1,0 +1,1 @@
+"""Shopping section catalogue and page assets."""

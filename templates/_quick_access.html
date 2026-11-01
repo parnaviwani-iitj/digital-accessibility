@@ -1,0 +1,13 @@
+{% if accessibility_prefs.read_aloud or accessibility_prefs.keyboard_support %}
+<aside class="quick-access-tools" aria-label="Quick access tools">
+  {% if accessibility_prefs.read_aloud %}
+  <button class="button" id="readPageButton" type="button">Read page aloud</button>
+  <button class="button secondary" id="pausePageButton" type="button">Pause reading</button>
+  <button class="button secondary" id="stopPageButton" type="button">Stop reading</button>
+  <p id="speechStatus" role="status" aria-live="polite"></p>
+  {% endif %}
+  {% if accessibility_prefs.keyboard_support %}
+  <p>Keyboard: Tab / Shift + Tab to move; Enter or Space to activate.</p>
+  {% endif %}
+</aside>
+{% endif %}

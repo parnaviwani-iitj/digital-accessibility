@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Register | Access Portal{% endblock %}
+{% block content %}
+<h1>Create an account</h1>
+<form method="post" class="panel">
+  <label for="username">Username (at least 3 characters)</label>
+  <input id="username" name="username" autocomplete="username" required minlength="3">
+  <label for="password">Password (at least 10 characters)</label>
+  <input id="password" name="password" type="password" autocomplete="new-password" required minlength="10">
+  <button class="button" type="submit">Register</button>
+</form>
+{% endblock %}

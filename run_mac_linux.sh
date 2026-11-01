@@ -1,0 +1,1 @@
+#!/usr/bin/env bash\npython3 -m pip install -r requirements.txt\npython3 app.py\n

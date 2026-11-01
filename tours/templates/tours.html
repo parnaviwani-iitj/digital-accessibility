@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block title %}AccessTravel | Access Portal{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('tours_static', filename='css/tours.css') }}">
+{% endblock %}
+{% block content %}
+<div class="tours-page">
+  <header class="tour-navbar">
+    <a class="tour-logo" href="#tourHome" aria-label="AccessTravel home">Access<span>Travel</span></a>
+    <nav aria-label="Tours navigation">
+      <a href="#destinations">Destinations</a>
+      <a href="#tourAccessibility">Accessibility</a>
+      <a href="#booking">Book a trip</a>
+    </nav>
+  </header>
+
+  <div id="tourMain">
+    <section class="tour-hero" id="tourHome">
+      <div class="tour-hero-content">
+        <p class="tour-eyebrow">TRAVEL WITHOUT BARRIERS</p>
+        <h1>Explore the world.<br>Everyone belongs.</h1>
+        <p>Discover beautiful destinations and plan a trip that understands your accessibility needs.</p>
+        <a class="tour-primary-button" href="#booking">Plan your journey</a>
+      </div>
+    </section>
+
+    <section class="tour-search-panel" aria-labelledby="searchTitle">
+      <h2 id="searchTitle">Where would you like to go?</h2>
+      <form id="searchForm" class="tour-search-grid">
+        <div>
+          <label for="destination">Choose destination</label>
+          <input type="text" id="destination" list="destinationOptions" placeholder="Search or select a destination" autocomplete="off" required>
+          <datalist id="destinationOptions">
+            {% for place in ["Jaipur", "Udaipur", "Jodhpur", "Goa", "Manali", "Shimla", "Agra", "Delhi", "Mumbai", "Kerala", "Varanasi", "Amritsar", "Srinagar", "Rishikesh", "Darjeeling"] %}
+            <option value="{{ place }}"></option>
+            {% endfor %}
+          </datalist>
+        </div>
+        <div>
+          <label for="travelDate">Travel date</label>
+          <input id="travelDate" type="date" required>
+        </div>
+        <div>
+          <label for="travellers">Travellers</label>
+          <input id="travellers" type="number" min="1" max="20" value="1" required>
+        </div>
+        <div class="tour-budget-field">
+          <label for="budgetMin">Minimum group budget (₹)</label>
+          <input id="budgetMin" type="number" min="0" step="1" placeholder="e.g. 5000">
+        </div>
+        <div class="tour-budget-field">
+          <label for="budgetMax">Maximum group budget (₹)</label>
+          <input id="budgetMax" type="number" min="0" step="1" placeholder="e.g. 15000">
+        </div>
+        <button class="tour-primary-button" type="submit">Find trips</button>
+      </form>
+      <div id="travellerNames" class="tour-traveller-names" hidden></div>
+      <div id="tripEstimate" class="tour-trip-estimate" role="status" aria-live="polite">
+        Select a destination to view estimated trip cost.
+      </div>
+      <p id="searchMessage" role="status" aria-live="polite"></p>
+      <div class="tour-voice-search">
+        <label for="speechLanguage">Voice search language</label>
+        <select id="speechLanguage">
+          <option value="hi-IN">Hindi</option>
+          <option value="en-IN">English (India)</option>
+        </select>
+        <button id="voiceSearch" class="tour-secondary-button" type="button">Search destination by voice</button>
+        <p id="voiceMessage" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section id="destinations" class="tour-section">
+      <p class="tour-eyebrow">FIND YOUR NEXT ADVENTURE</p>
+      <h2>Popular destinations</h2>
+      <p>Choose a destination to start planning your journey. Estimates are fictional examples.</p>
+      <div class="tour-destination-grid">
+        <article class="tour-destination-card">
+          <img src="https://images.unsplash.com/photo-1599661046827-dacff0c0f09a?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Hawa Mahal, a historic pink palace in Jaipur">
+          <div class="tour-card-content"><h3>Jaipur</h3><p>Culture, history and colourful streets.</p><button class="tour-secondary-button choose-destination" type="button" data-place="Jaipur">Explore Jaipur</button></div>
+        </article>
+        <article class="tour-destination-card">
+          <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Beautiful tropical beach in Goa">
+          <div class="tour-card-content"><h3>Goa</h3><p>Beaches, sunsets and relaxing escapes.</p><button class="tour-secondary-button choose-destination" type="button" data-place="Goa">Explore Goa</button></div>
+        </article>
+        <article class="tour-destination-card">
+          <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Taj Mahal monument in Agra">
+          <div class="tour-card-content"><h3>Agra</h3><p>Discover India's architectural heritage.</p><button class="tour-secondary-button choose-destination" type="button" data-place="Agra">Explore Agra</button></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="tourAccessibility" class="tour-section tour-accessibility-section">
+      <p class="tour-eyebrow">DESIGNED FOR EVERYONE</p>
+      <h2>Your journey, your needs</h2>
+      <div class="tour-feature-grid">
+        <article><h3>Visual accessibility</h3><p>Keyboard navigation, image descriptions and readable content.</p></article>
+        <article><h3>Hearing accessibility</h3><p>Text instructions and captions for supported audio content.</p></article>
+        <article><h3>Mobility accessibility</h3><p>Keyboard-friendly controls and space to request accessible facilities.</p></article>
+      </div>
+    </section>
+
+    <section id="booking" class="tour-section">
+      <p class="tour-eyebrow">LET'S PLAN YOUR TRIP</p>
+      <h2>Travel booking request</h2>
+      <form id="bookingForm" class="tour-booking-form">
+        <label for="bookingDestination">Destination</label>
+        <input id="bookingDestination" required>
+        <label for="hotel">Choose hotel</label>
+        <select id="hotel" required>
+          <option value="">Select a hotel</option>
+          <option value="Taj Hotel">Taj Hotel</option>
+          <option value="ITC Hotels">ITC Hotels</option>
+          <option value="The Oberoi">The Oberoi</option>
+          <option value="Radisson Hotel">Radisson Hotel</option>
+          <option value="Holiday Inn">Holiday Inn</option>
+        </select>
+        <label for="bookingDate">Travel date</label>
+        <input id="bookingDate" type="date" required>
+        <label for="bookingPeople">Number of travellers</label>
+        <input id="bookingPeople" type="number" min="1" max="20" value="1" required>
+        <label for="support">Accessibility requirements</label>
+        <select id="support">
+          <option value="none">No specific request</option>
+          <option value="wheelchair">Wheelchair access</option>
+          <option value="hearing">Hearing accessibility</option>
+          <option value="visual">Visual accessibility</option>
+          <option value="mobility">Mobility assistance</option>
+          <option value="other">Other requirements</option>
+        </select>
+        <label for="notes">Additional details (optional)</label>
+        <textarea id="notes" rows="4" placeholder="Tell us what would make your trip easier"></textarea>
+        <button class="tour-primary-button" type="submit">Review my request</button>
+      </form>
+      <div id="bookingResult" class="tour-booking-result" role="status" aria-live="polite" tabindex="-1"></div>
+    </section>
+
+    <section id="tripInvoice" class="tour-invoice-section" hidden aria-labelledby="invoiceTitle">
+      <div class="tour-invoice-card">
+        <h2 id="invoiceTitle" tabindex="-1">Trip booking summary</h2>
+        <p id="invoiceStatus">Please check your selected trip details and estimated costs.</p>
+        <div id="invoiceDetails"></div>
+        <div class="tour-invoice-total"><span>Total estimated bill</span><strong id="invoiceTotal">₹0</strong></div>
+        <p class="tour-invoice-note">This is an estimated bill, not a confirmed booking receipt. Actual fares and hotel prices may vary. No booking was sent or confirmed.</p>
+        <div class="tour-invoice-actions">
+          <button id="printInvoice" class="tour-primary-button" type="button">Print bill / Save PDF</button>
+          <button id="backToBooking" class="tour-secondary-button" type="button">Back to booking</button>
+        </div>
+      </div>
+    </section>
+  </div>
+  <footer class="tour-footer"><p>AccessTravel — Better journeys, fewer barriers. Estimates and requests are demonstrations only.</p></footer>
+</div>
+<script src="{{ url_for('tours_static', filename='js/tours.js') }}" defer></script>
+{% endblock %}

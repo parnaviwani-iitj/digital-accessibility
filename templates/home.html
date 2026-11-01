@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Home | Access Portal{% endblock %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">ACCESSIBILITY FIRST</p>
+  <h1>One profile. Four accessible experiences.</h1>
+  <p>Sign in once, save your accessibility preferences, and use them across Healthcare, Banking, Shopping and Tours in this prototype.</p>
+  {% if session.get('user_id') %}
+    <a class="button" href="{{ url_for('accessibility') }}">Manage my preferences</a>
+  {% else %}
+    <a class="button" href="{{ url_for('register') }}">Create account</a>
+    <a class="button secondary" href="{{ url_for('login') }}">Log in</a>
+  {% endif %}
+</section>
+<section>
+  <h2>Explore services</h2>
+  <div class="grid">
+    <article class="tile"><h3>Healthcare</h3><p>Hospitals, doctors and appointment request demonstration.</p><a class="button" href="/health/">Open Healthcare</a></article>
+    <article class="tile"><h3>Banking</h3><p>Accessible banking dashboard demonstration.</p><a class="button" href="/banking/">Open Banking</a></article>
+    <article class="tile"><h3>Shopping</h3><p>Accessible product browsing demonstration.</p><a class="button" href="/shopping/">Open Shopping</a></article>
+    <article class="tile"><h3>Tours</h3><p>Accessible tours and destinations demonstration.</p><a class="button" href="/tours/">Open Tours</a></article>
+  </div>
+  {% if not session.get('user_id') %}<p>Log in to manage saved accessibility preferences. Section pages can be previewed without logging in, but preferences are applied after login.</p>{% endif %}
+</section>
+{% endblock %}

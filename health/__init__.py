@@ -1,0 +1,1 @@
+"""Healthcare section adapted from the supplied Flask source files."""\n

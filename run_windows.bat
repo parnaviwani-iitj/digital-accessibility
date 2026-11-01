@@ -1,0 +1,1 @@
+@echo off\npython -m pip install -r requirements.txt\npython app.py\npause\n

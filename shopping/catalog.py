@@ -1,0 +1,25 @@
+PRODUCTS = [
+    {"id": 1, "name": "Notebook", "description": "A simple notebook for everyday notes.", "price": 100, "category": "Stationery", "emoji": "📓"},
+    {"id": 2, "name": "Pen Set", "description": "A set of smooth-writing blue pens.", "price": 60, "category": "Stationery", "emoji": "🖊️"},
+    {"id": 3, "name": "Ergonomic Grip Pen", "description": "Thick soft-grip pen that is easy to hold with weak or limited hand strength.", "price": 120, "category": "Stationery", "emoji": "✏️"},
+    {"id": 4, "name": "Large Print Diary", "description": "Big-letter diary with wide spacing and thick lines.", "price": 220, "category": "Stationery", "emoji": "📔"},
+    {"id": 5, "name": "Water Bottle", "description": "A reusable bottle for school or travel.", "price": 250, "category": "Kitchen", "emoji": "🧴"},
+    {"id": 6, "name": "Easy-Grip Jar Opener", "description": "Non-slip opener that needs very little twisting force.", "price": 180, "category": "Kitchen", "emoji": "🫙"},
+    {"id": 7, "name": "Lightweight Cup with Handles", "description": "Two-handled plastic cup that is stable and easy to lift.", "price": 150, "category": "Kitchen", "emoji": "🥤"},
+    {"id": 8, "name": "Angled Cutlery Set", "description": "Bent-handle spoon and fork with thick, cushioned grips.", "price": 340, "category": "Kitchen", "emoji": "🥄"},
+    {"id": 9, "name": "Non-Slip Plate Mat", "description": "Rubber mat that stops plates and bowls from sliding.", "price": 130, "category": "Kitchen", "emoji": "🍽️"},
+    {"id": 10, "name": "Reacher Grabber Tool", "description": "Long-handled grabber for picking up items without bending.", "price": 450, "category": "Mobility", "emoji": "🦾"},
+    {"id": 11, "name": "Folding Walking Stick", "description": "Adjustable, lightweight stick with a comfortable handle.", "price": 600, "category": "Mobility", "emoji": "🦯"},
+    {"id": 12, "name": "Wheelchair Side Bag", "description": "Bag that hangs on the armrest to keep essentials in reach.", "price": 520, "category": "Mobility", "emoji": "👜"},
+    {"id": 13, "name": "Lap Tray Table", "description": "Padded tray for meals, books or a laptop while seated.", "price": 700, "category": "Mobility", "emoji": "🛋️"},
+    {"id": 14, "name": "Long-Handled Shoe Horn", "description": "Helps you put on shoes without bending down.", "price": 140, "category": "Daily Living", "emoji": "👞"},
+    {"id": 15, "name": "Button Hook & Zipper Aid", "description": "Simple tool for dressing with one hand or limited finger movement.", "price": 160, "category": "Daily Living", "emoji": "🧥"},
+    {"id": 16, "name": "Long-Handled Bath Sponge", "description": "Reach your back and feet comfortably while bathing.", "price": 110, "category": "Daily Living", "emoji": "🧽"},
+    {"id": 17, "name": "Weekly Pill Organizer", "description": "Large easy-open compartments with big day labels.", "price": 90, "category": "Daily Living", "emoji": "💊"},
+    {"id": 18, "name": "Voice-Control Smart Plug", "description": "Switch lights and fans on or off using your voice or phone.", "price": 899, "category": "Electronics", "emoji": "🔌"},
+    {"id": 19, "name": "Phone Holder Stand", "description": "Adjustable stand for hands-free phone use on a table or bed.", "price": 280, "category": "Electronics", "emoji": "📱"},
+    {"id": 20, "name": "Big-Button Wireless Mouse", "description": "Large, light-click mouse that is easy to use with limited dexterity.", "price": 650, "category": "Electronics", "emoji": "🖱️"},
+    {"id": 21, "name": "Rechargeable Torch", "description": "Bright light with a large push button.", "price": 320, "category": "Electronics", "emoji": "🔦"},
+]
+
+CATEGORIES = ["All", *dict.fromkeys(product["category"] for product in PRODUCTS)]

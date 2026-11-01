@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta
+        name="description"
+        content="CareEase is a student prototype for accessible healthcare discovery and appointment requests."
+    >
+
+    <title>CareEase | Healthcare for Everyone</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+<link rel="stylesheet" href="/health/static/css/health.css"><link rel="stylesheet" href="/static/css/common.css"></head>
+
+<body class="{% if accessibility_prefs.high_contrast %}a11y-high-contrast {% endif %}{% if accessibility_prefs.underline_links %}a11y-underline {% endif %}{% if accessibility_prefs.increased_spacing %}a11y-spacing {% endif %}{% if accessibility_prefs.large_controls %}a11y-large-controls {% endif %}{% if accessibility_prefs.reduced_motion %}a11y-reduced-motion {% endif %}{% if accessibility_prefs.easy_read %}a11y-easy-read{% endif %}" style="font-size: {{ accessibility_prefs.text_scale }}%;" data-keyboard-support="{{ accessibility_prefs.keyboard_support|lower }}" data-written-communication="{{ accessibility_prefs.written_communication|lower }}" data-read-aloud="{{ accessibility_prefs.read_aloud|lower }}"><div class="portal-return" style="padding:10px 18px;background:#142b4a;color:white"><a href="/" style="color:white">← Back to Access Portal</a> · <a href="/accessibility" style="color:white">Accessibility preferences</a></div>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="header">
+
+    <a class="logo" href="#home" aria-label="CareEase home">
+        CareEase<span>.</span>
+    </a>
+
+    <nav aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#hospitals">Hospitals</a>
+        <a href="#doctors">Doctors</a>
+        <a href="#appointment">Appointment</a>
+    </nav>
+
+
+</header>
+
+{% include "_quick_access.html" %}
+
+<main id="main">
+
+    <!-- HERO -->
+
+    <section id="home" class="hero">
+
+        <div class="hero-content">
+
+            <p class="eyebrow">HEALTHCARE WITHOUT BARRIERS</p>
+
+            <h1>
+                Healthcare that
+                <span>adapts to you.</span>
+            </h1>
+
+            <p>
+                Find healthcare facilities, explore doctors
+                and communicate the assistance you may need.
+                Access healthcare information in a way that
+                works for you.
+            </p>
+
+            <div class="hero-actions">
+                <a class="btn" href="#hospitals">Find hospitals</a>
+                <a class="btn btn-light" href="/accessibility">Manage preferences</a>
+            </div>
+
+            <p class="demo-notice">
+                <strong>Student prototype:</strong>
+                Hospital and doctor records are fictional.
+                Accessibility information is demonstration data,
+                not verified information about real facilities.
+            </p>
+
+        </div>
+
+        <div class="hero-card">
+
+            <div class="hero-symbol" aria-hidden="true">+</div>
+
+            <h2>Your needs matter.</h2>
+
+            <p>
+                Choose the communication, navigation
+                and accessibility support that works for you.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- COMMUNICATION SUPPORT -->
+
+    <section id="communication" class="section">
+
+        <p class="eyebrow">COMMUNICATION SUPPORT</p>
+
+        <h2>Choose how you communicate</h2>
+
+        <p class="section-description">
+            You can use these tools to prepare written information
+            for a healthcare visit. This does not send a message
+            to a hospital.
+        </p>
+
+        <div class="communication-card">
+
+            <label for="communicationText" class="field-label">
+                Type a message or request
+            </label>
+
+            <textarea
+                id="communicationText"
+                rows="4"
+                placeholder="For example: I would prefer written instructions."
+            ></textarea>
+
+            <div class="profile-actions">
+
+                <button id="copyCommunication" class="btn" type="button">
+                    Copy message
+                </button>
+
+                <button id="clearCommunication" class="btn btn-light" type="button">
+                    Clear message
+                </button>
+
+            </div>
+
+            <p id="communicationMessage" role="status" aria-live="polite"></p>
+
+        </div>
+
+    </section>
+
+
+    <!-- HOSPITAL FINDER -->
+
+    <section id="hospitals" class="section section-tint">
+
+        <p class="eyebrow">ACCESSIBLE DIRECTORY</p>
+
+        <h2>Find a hospital</h2>
+
+        <p class="section-description">
+            Search the sample directory and filter by the facilities
+            you may need.
+        </p>
+
+        <label for="hospitalSearch" class="field-label">
+            Search by name, city or speciality
+        </label>
+
+        <input
+            id="hospitalSearch"
+            type="search"
+            placeholder="Search hospitals..."
+        >
+
+        <fieldset class="filter-box">
+
+            <legend>Filter by accessibility facilities</legend>
+
+            <p class="filter-help">
+                In this prototype, filters include fictional
+                facilities marked "Demo available" or "Verified".
+            </p>
+
+            <div class="filter-grid">
+
+                <label>
+                    <input type="checkbox" name="hospitalFilter" value="wheelchair_entrance">
+                    Wheelchair-accessible entrance
+                </label>
+
+                <label>
+                    <input type="checkbox" name="hospitalFilter" value="ramps">
+                    Ramps
+                </label>
+
+                <label>
+                    <input type="checkbox" name="hospitalFilter" value="elevators">
+                    Elevators
+                </label>
+
+                <label>
+                    <input type="checkbox" name="hospitalFilter" value="accessible_toilet">
+                    Accessible washroom
+                </label>
+
+                <label>
+                    <input type="checkbox" name="hospitalFilter" value="wheelchair_available">
+                    Wheelchair availability
+                </label>
+
+                <label>
+                    <input type="checkbox" name="hospitalFilter" value="accessible_parking">
+                    Accessible parking
+                </label>
+
+                <label>
+                    <input type="checkbox" name="hospitalFilter" value="sign_language">
+                    Sign-language interpretation
+                </label>
+
+                <label>
+                    <input type="checkbox" name="hospitalFilter" value="written_communication">
+                    Written communication
+                </label>
+
+                <label>
+                    <input type="checkbox" name="hospitalFilter" value="quiet_space">
+                    Quiet waiting area
+                </label>
+
+                <label>
+                    <input type="checkbox" name="hospitalFilter" value="navigation_help">
+                    Navigation assistance
+                </label>
+
+            </div>
+
+            <button id="clearHospitalFilters" class="btn btn-light" type="button">
+                Clear filters
+            </button>
+
+        </fieldset>
+
+        <p id="hospitalCount" aria-live="polite"></p>
+
+        <div id="hospitalList" class="listing-grid" aria-busy="true">
+            Loading hospitals...
+        </div>
+
+    </section>
+
+
+    <!-- DOCTOR DIRECTORY -->
+
+    <section id="doctors" class="section">
+
+        <p class="eyebrow">DOCTOR DIRECTORY</p>
+
+        <h2>Explore doctors</h2>
+
+        <p class="section-description">
+            Search doctors by name, speciality or hospital.
+            Communication options are shown separately.
+        </p>
+
+        <label for="doctorSearch" class="field-label">
+            Search doctors
+        </label>
+
+        <input
+            id="doctorSearch"
+            type="search"
+            placeholder="Search doctors..."
+        >
+
+        <fieldset class="filter-box">
+
+            <legend>Additional communication options</legend>
+
+            <div class="filter-grid">
+
+                <label>
+                    <input type="checkbox" id="doctorWrittenFilter">
+                    Written communication
+                </label>
+
+                <label>
+                    <input type="checkbox" id="doctorSignFilter">
+                    Sign-language support
+                </label>
+
+                <label>
+                    <input type="checkbox" id="doctorTimeFilter">
+                    Extra appointment time
+                </label>
+
+            </div>
+
+        </fieldset>
+
+        <p id="doctorCount" aria-live="polite"></p>
+
+        <div id="doctorList" class="listing-grid" aria-busy="true">
+            Loading doctors...
+        </div>
+
+    </section>
+
+
+    <!-- APPOINTMENT REQUEST -->
+
+    <section id="appointment" class="section section-tint">
+
+        <p class="eyebrow">APPOINTMENT SUPPORT</p>
+
+        <h2>Request an appointment</h2>
+
+        <p class="section-description">
+            Complete the steps and select any assistance you would
+            like to request.
+        </p>
+
+        <div class="form-card">
+
+            <ol class="steps" aria-label="Form progress">
+                <li id="stepLabel1" aria-current="step">Your details</li>
+                <li id="stepLabel2">Doctor</li>
+                <li id="stepLabel3">Assistance</li>
+                <li id="stepLabel4">Review</li>
+            </ol>
+
+
+            <form id="appointmentForm" novalidate>
+
+                <section class="form-step" data-step="0">
+
+                    <h3 tabindex="-1">Step 1: Your details</h3>
+
+                    <p>
+                        Use fictional details in this demonstration.
+                    </p>
+
+                    <label for="patientName" class="field-label">
+                        Name
+                    </label>
+
+                    <input
+                        id="patientName"
+                        name="name"
+                        required
+                        autocomplete="off"
+                    >
+
+                </section>
+
+
+                <section class="form-step" data-step="1" hidden>
+
+                    <h3 tabindex="-1">Step 2: Choose a doctor</h3>
+
+                    <label for="doctorSelect" class="field-label">
+                        Doctor
+                    </label>
+
+                    <select id="doctorSelect" name="doctor" required>
+                        <option value="">Choose a doctor</option>
+                    </select>
+
+                    <label for="appointmentDate" class="field-label">
+                        Preferred date
+                    </label>
+
+                    <input
+                        id="appointmentDate"
+                        name="date"
+                        type="date"
+                        required
+                    >
+
+                    <label for="appointmentTime" class="field-label">
+                        Preferred time
+                    </label>
+
+                    <select id="appointmentTime" name="time" required>
+                        <option value="">Choose a time</option>
+                        <option value="09:00">9:00 AM</option>
+                        <option value="11:00">11:00 AM</option>
+                        <option value="14:00">2:00 PM</option>
+                        <option value="16:00">4:00 PM</option>
+                    </select>
+
+                </section>
+
+
+                <section class="form-step" data-step="2" hidden>
+
+                    <h3 tabindex="-1">Step 3: What assistance would help?</h3>
+
+                    <p>
+                        Select any options you would like to request.
+                        You can leave this section blank.
+                    </p>
+
+                    <div class="assistance-list">
+
+                        <label>
+                            <input type="checkbox" name="assistance" value="Wheelchair assistance">
+                            Wheelchair assistance
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="assistance" value="Help navigating the hospital">
+                            Help navigating the hospital
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="assistance" value="Written communication">
+                            Written communication
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="assistance" value="Sign-language interpreter">
+                            Sign-language interpreter
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="assistance" value="Extra time for communication">
+                            Extra time for communication
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="assistance" value="Quiet waiting arrangements">
+                            Quiet waiting arrangements
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="assistance" value="Simplified written instructions">
+                            Simplified written instructions
+                        </label>
+
+                    </div>
+
+                    <label for="communicationMethod" class="field-label">
+                        Preferred communication method
+                    </label>
+
+                    <select id="communicationMethod" name="communication">
+                        <option value="">No preference selected</option>
+                        <option value="Text">Text</option>
+                        <option value="Email">Email</option>
+                        <option value="Written instructions">Written instructions</option>
+                        <option value="Other - discuss with hospital">Other - discuss with hospital</option>
+                    </select>
+
+                </section>
+
+
+                <section class="form-step" data-step="3" hidden>
+
+                    <h3 tabindex="-1">Step 4: Review your request</h3>
+
+                    <p>
+                        Check your selections before submitting.
+                    </p>
+
+                    <div id="reviewDetails" class="review-box"></div>
+
+                    <p class="privacy-note">
+                        This is a demonstration only.
+                        Do not enter real health information.
+                        The website will not book an appointment
+                        or save your assistance requirements.
+                    </p>
+
+                </section>
+
+
+                <p id="formError" class="error" role="alert"></p>
+
+                <div class="form-actions">
+
+                    <button
+                        type="button"
+                        id="previousStep"
+                        class="btn btn-light"
+                        disabled
+                    >
+                        Back
+                    </button>
+
+                    <button
+                        type="button"
+                        id="nextStep"
+                        class="btn"
+                    >
+                        Next
+                    </button>
+
+                    <button
+                        type="submit"
+                        id="submitAppointment"
+                        class="btn"
+                        hidden
+                    >
+                        Submit demo request
+                    </button>
+
+                </div>
+
+                <p id="appointmentMessage" role="status" aria-live="polite"></p>
+
+            </form>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+
+    <a class="logo footer-logo" href="#home">
+        CareEase<span>.</span>
+    </a>
+
+    <p>
+        Healthcare access should not depend on a person's abilities.
+    </p>
+
+    <p>
+        Student prototype. Not a medical provider or emergency service.
+    </p>
+
+</footer>
+
+
+
+
+<script
+    src="{{ url_for('static', filename='js/app.js') }}"
+    defer
+></script>
+
+<script>window.CENTRAL_ACCESSIBILITY_PREFS = {{ accessibility_prefs|tojson }};</script>
+<script src="/static/js/accessibility.js"></script>
+<script>if(window.AccessPrefs){window.AccessPrefs.apply(window.CENTRAL_ACCESSIBILITY_PREFS);}</script>
+<script src="/health/static/js/health.js"></script></body>
+</html>

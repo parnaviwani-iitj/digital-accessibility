@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Banking | Access Portal{% endblock %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">ACCESSIBLE BANKING</p>
+  <h1>Welcome, {{ session.get('username') }}!</h1>
+  <p>Welcome! Manage your money easily.</p>
+  <p><a class="button secondary" href="{{ url_for('home') }}">← Back to portal</a> <a class="button" href="{{ url_for('accessibility') }}">Change accessibility preferences</a></p>
+</section>
+<section class="tile" aria-labelledby="banking-dashboard-title">
+  <h2 id="banking-dashboard-title">Banking Dashboard</h2>
+  <p>Select the service you need.</p>
+  <section class="panel" aria-labelledby="savings-balance-title">
+    <h3 id="savings-balance-title">Savings Balance</h3>
+    <p><strong>INR {{ '%.2f'|format(balance_cents / 100) }}</strong></p>
+  </section>
+  <div class="grid">
+    <section class="panel" aria-labelledby="send-money-title">
+      <h3 id="send-money-title">Send Money</h3>
+      <form method="post" action="{{ url_for('banking_transaction') }}">
+        <input type="hidden" name="kind" value="send">
+        <label for="recipient">Recipient</label>
+        <input id="recipient" name="recipient" maxlength="80" required>
+        <label for="send-amount">Amount (INR)</label>
+        <input id="send-amount" name="amount" type="number" min="0.01" max="999999999999.99" step="0.01" required>
+        <button type="submit">Send Money</button>
+      </form>
+    </section>
+    <section class="panel" aria-labelledby="receive-money-title">
+      <h3 id="receive-money-title">Receive Money</h3>
+      <p>Record a simulated incoming payment. No real money is transferred.</p>
+      <form method="post" action="{{ url_for('banking_transaction') }}">
+        <input type="hidden" name="kind" value="receive">
+        <label for="sender">Sender</label>
+        <input id="sender" name="sender" maxlength="80" required>
+        <label for="receive-amount">Amount (INR)</label>
+        <input id="receive-amount" name="amount" type="number" min="0.01" max="999999999999.99" step="0.01" required>
+        <button type="submit">Receive Money</button>
+      </form>
+    </section>
+    <section class="panel" aria-labelledby="investment-tips-title">
+      <h3 id="investment-tips-title">Investment Tips</h3>
+      <ul>
+        <li>Understand the risks before investing.</li>
+        <li>Consider diversification and your financial goals.</li>
+        <li>Consult a qualified financial professional for personal advice.</li>
+      </ul>
+      <p>General information only, not financial advice or an investment recommendation.</p>
+    </section>
+  </div>
+  <section class="panel" aria-labelledby="transaction-history-title">
+    <h3 id="transaction-history-title">Transaction History</h3>
+    {% if transactions %}
+      <div class="table-scroll">
+        <table>
+          <caption>Recent simulated banking transactions</caption>
+          <thead>
+            <tr><th scope="col">Date and time (UTC)</th><th scope="col">Type</th><th scope="col">Name</th><th scope="col">Amount</th><th scope="col">Balance after</th></tr>
+          </thead>
+          <tbody>
+            {% for transaction in transactions %}
+              <tr>
+                <td>{{ transaction.created_at }}</td>
+                <td>{{ transaction.kind|capitalize }}</td>
+                <td>{{ transaction.counterparty }}</td>
+                <td>INR {{ '%.2f'|format(transaction.amount_cents / 100) }}</td>
+                <td>INR {{ '%.2f'|format(transaction.balance_after_cents / 100) }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p>No transactions yet.</p>
+    {% endif %}
+  </section>
+  <p class="notice" role="status">This is a simulated student demo. The saved balance and history are fictional; no real transactions or payments are processed.</p>
+</section>
+{% endblock %}

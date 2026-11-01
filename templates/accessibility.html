@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Accessibility preferences{% endblock %}
+{% block content %}
+<h1>My accessibility preferences</h1>
+<p>Choose how you want pages across Access Portal to work. Your preferences start in normal mode and can be changed at any time.</p>
+<form method="post" class="panel preferences">
+  <h2>Personal access</h2>
+  <p>These saved choices apply across the home page and every service page.</p>
+  <fieldset>
+    <legend>Support presets</legend>
+    <p>Choose a starting point, then adjust the individual preferences below if needed.</p>
+    <div class="grid">
+      <button class="button secondary" type="button" data-access-preset="visual">Visual support</button>
+      <button class="button secondary" type="button" data-access-preset="hearing">Hearing support</button>
+      <button class="button secondary" type="button" data-access-preset="mobility">Mobility support</button>
+      <button class="button secondary" type="button" data-access-preset="communication">Communication support</button>
+      <button class="button secondary" type="button" data-access-preset="easy_read">Easy Read support</button>
+      <button class="button secondary" type="button" data-access-preset="multiple">Multiple support needs</button>
+    </div>
+  </fieldset>
+  <label for="text_scale">Text size: <output id="scaleOutput">{{ prefs.text_scale }}%</output></label>
+  <input id="text_scale" name="text_scale" type="range" min="100" max="200" step="10" value="{{ prefs.text_scale }}">
+  {% for key, label in [
+    ('high_contrast','High contrast'),
+    ('underline_links','Underline links'),
+    ('increased_spacing','Increase text spacing'),
+    ('large_controls','Larger buttons and controls'),
+    ('reduced_motion','Reduce animations and motion'),
+    ('easy_read','Easy Read / simpler presentation'),
+    ('read_aloud','Show read-aloud controls'),
+    ('written_communication','Prefer written communication'),
+    ('keyboard_support','Show keyboard navigation guidance')
+  ] %}
+  <label class="check"><input type="checkbox" name="{{ key }}" {% if prefs[key] %}checked{% endif %}> {{ label }}</label>
+  {% endfor %}
+  <button class="button secondary" id="normalPreferences" type="button">Restore normal settings</button>
+  <button class="button" type="submit">Save preferences</button>
+</form>
+<section class="panel" aria-labelledby="quickAccessTitle">
+  <h2 id="quickAccessTitle">Quick access</h2>
+  <p>Preview Easy Read here, or enable it above and save to use it across all pages.</p>
+  <button class="button secondary" id="easyReadQuickToggle" type="button" aria-pressed="{{ 'true' if prefs.easy_read else 'false' }}">
+    {{ 'Turn off Easy Read preview' if prefs.easy_read else 'Turn on Easy Read preview' }}
+  </button>
+  <p id="quickAccessMessage" role="status" aria-live="polite"></p>
+  <h3>Keyboard navigation</h3>
+  <p>Use Tab to move forward, Shift + Tab to move backwards, and Enter or Space to activate controls. Keyboard navigation is available in normal mode too.</p>
+  <p>To show these instructions on other pages, enable “Show keyboard navigation guidance” and save.</p>
+  <p>Read-aloud controls appear on every page when “Show read-aloud controls” is enabled and saved.</p>
+</section>
+<script>
+const slider = document.getElementById('text_scale');
+const output = document.getElementById('scaleOutput');
+slider.addEventListener('input', () => output.value = slider.value + '%');
+</script>
+{% endblock %}

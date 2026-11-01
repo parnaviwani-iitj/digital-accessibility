@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} | Access Portal{% endblock %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">ACCESSIBLE SERVICE DEMO</p>
+  <h1>{{ title }}</h1>
+  <p>{{ intro }}</p>
+  <p><a class="button secondary" href="/">← Back to portal</a> <a class="button" href="/accessibility">Change accessibility preferences</a></p>
+</section>
+<section class="tile">
+  <h2>{{ panel_title }}</h2>
+  <p>{{ panel_text }}</p>
+  <div id="demo-content">{{ details|safe }}</div>
+  <p class="notice" role="status">This is a student demonstration. It does not process real transactions or bookings.</p>
+</section>
+{% endblock %}
