@@ -64,3 +64,4 @@ cp .env.example .env
 This is a classroom prototype, not a production service. Healthcare appointment requests do not book appointments or store submitted personal information. Shopping checkout is simulated; its customer and address fields stay in the browser and are not submitted or saved. Tours prices and invoices are estimates only; no trip booking is submitted or confirmed. Use fictional details in all demos.
 
 The project uses one same-origin Flask session; this is not production SSO. Excel storage is for a small local demo and is not suitable for concurrent or high-load production use. Do not store medical records, bank credentials, payment data, or other sensitive personal information.
+Project presentation link - https://canva.link/gv0xagcjddyqluq
